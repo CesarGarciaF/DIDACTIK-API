@@ -37,8 +37,6 @@ exports.signupUser = async (req, res) => {
     //   httpOnly: false,
     // });
     res.json({ message: "User created successfully" });
-
-    res.json(userSaved);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -60,7 +58,7 @@ exports.authenticateUser = async (req, res) => {
     //     res.status(401).json({ message: 'Credenciales inválidas'});
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ message: "Credenciales inválidas" });
+      return res.status(401).json(["Credenciales inválidas"]);
     }
 
     const token = await createAccessToken({
@@ -71,7 +69,7 @@ exports.authenticateUser = async (req, res) => {
     res.cookie("token", token);
     res.json({ message: "Login successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json([error.message]);
   }
 };
 

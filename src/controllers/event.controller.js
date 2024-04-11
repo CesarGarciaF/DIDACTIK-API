@@ -11,6 +11,7 @@ exports.getAllEvents = async (req, res) => {
 
 exports.createEvent = async (req, res) => {
   const { title, description, start, end } = req.body;
+  console.log(req.body);
 
   const newEvent = new Event({
     title,
@@ -30,7 +31,7 @@ exports.createEvent = async (req, res) => {
 exports.updateEvent = async (req, res) => {
   const { id, title, description, start, end } = req.body;
 
-  console.log(req.body)
+  console.log(req.body);
 
   // const newEvent = new Event({
   //   title,

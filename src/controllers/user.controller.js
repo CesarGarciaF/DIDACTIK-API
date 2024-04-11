@@ -1,27 +1,54 @@
 const User = require("../models/user.model");
 
-exports.getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+exports.getUsers = (req, res) => {
+  User.find({})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
 };
 
-exports.createUser = async (req, res) => {
-  const { username, email, password } = req.body;
+exports.getUserById = async (req, res) => {
+  const id = req.params.id;
+
+  await User.findById({ _id: id })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+};
+
+exports.registerUser = async (req, res) => {
+  const userData = req.body;
 
   const newUser = new User({
-    username,
-    email,
-    password,
+    email: userData.email,
+    username: userData.username,
+    password: userData.password,
   });
 
-  try {
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+  await newUser
+    .save()
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+};
+
+exports.updateUser = async (req, res) => {
+  const id = req.params.id;
+  const userData = req.body;
+
+  const newUser = new User({
+    email: userData.email,
+    username: userData.username,
+    password: userData.password,
+  });
+
+  await newUser
+    .updateOne({ _id: id }, { $set: { newUser } })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+};
+
+exports.deleteUser = (req, res) => {
+  const id = req.params.id;
+
+  User.deleteOne({ _id: id })
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
 };
