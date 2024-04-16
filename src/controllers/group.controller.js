@@ -33,7 +33,8 @@ exports.getGroupById = async (req, res) => {
 
 exports.updateGroup = async (req, res) => {
   try {
-    console.log(req.params);
+    console.log("Params: " + req.params);
+    console.log("Body: " + req.body);
     // const updatedGroup = await Group.findByIdAndUpdate(
     //   req.params.id,
     //   req.body,

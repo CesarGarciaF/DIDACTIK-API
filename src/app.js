@@ -11,7 +11,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(coockieParser());
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://didacti-k.onrender.com",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {

@@ -17,7 +17,7 @@ router.post("/logout", authController.logout);
 
 router.get("/verify", authController.verifyToken);
 
-router.post("/profile", validateToken, authController.profile);
+router.get("/profile", validateToken, authController.profile);
 
 // User routes
 router.get("/users", userController.getUsers);

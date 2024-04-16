@@ -6,7 +6,6 @@ const config = require("../config");
 
 exports.signupUser = async (req, res) => {
   const { username, email, password } = req.body;
-  console.log(req.body);
 
   try {
     const usernameFound = await User.findOne({ username });
@@ -64,6 +63,9 @@ exports.authenticateUser = async (req, res) => {
     const token = await createAccessToken({
       id: user._id,
       email: user.email,
+      name: user.name,
+      name: user.firstName,
+      photo: user.photo,
     });
 
     res.cookie("token", token);
@@ -82,15 +84,17 @@ exports.logout = (req, res) => {
 };
 
 exports.profile = async (req, res) => {
-  const userFound = await User.findById(req.user.id);
+  const userFound = await User.findById(req.user);
 
   if (!userFound)
     return res.status(400).json({ message: "Usuario no encontrado" });
 
   return res.json({
     id: userFound._id,
-    username: userFound.username,
     email: userFound.email,
+    name: userFound.name,
+    firstName: userFound.firstName,
+    avatar: userFound.avatar,
   });
 };
 
