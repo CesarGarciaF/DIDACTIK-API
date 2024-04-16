@@ -30,10 +30,14 @@ exports.signupUser = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      domain: ".onrender.com",
+      // domain: ".onrender.com",
+      domain: "localhost",
       path: "/",
-      secure: true,
-      sameSite: "none",
+      // secure: true,
+      secure: false,
+      httpOnly: true,
+      // sameSite: "none",
+      sameSite: "lax",
     });
     // res.cookie("token", token);
 
@@ -45,7 +49,6 @@ exports.signupUser = async (req, res) => {
 
 exports.authenticateUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   try {
     const user = await User.findOne({ email });
 
@@ -72,10 +75,14 @@ exports.authenticateUser = async (req, res) => {
     // res.cookie("token", token);
 
     res.cookie("token", token, {
-      domain: ".onrender.com",
+      // domain: ".onrender.com",
+      domain: "localhost",
       path: "/",
-      secure: true,
-      sameSite: "none",
+      // secure: true,
+      secure: false,
+      httpOnly: true,
+      // sameSite: "none",
+      sameSite: "lax",
     });
     res.json({ message: "Login successfully" });
   } catch (error) {
