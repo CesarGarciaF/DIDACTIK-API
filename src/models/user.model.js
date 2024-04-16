@@ -24,16 +24,19 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    firsName: {
+    firstName: {
       type: String,
     },
     secondName: {
       type: String,
     },
-    sex: {
-      type: String,
+    gender: {
+      type: Boolean,
     },
     age: {
+      type: Number,
+    },
+    avatar: {
       type: String,
     },
     // nationality,

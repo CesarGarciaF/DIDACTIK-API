@@ -6,11 +6,15 @@ exports.validateToken = (req, res, next) => {
 
   if (!token) return res.status(401).json({ message: "Acceso denegado" });
 
-  jwt.verify(token, config.secret, (err, user) => {
-    if (err) return res.status(403).json({ message: "Token no válido" });
+  try {
+    jwt.verify(token, config.secret, (err, user) => {
+      if (err) return res.status(403).json({ message: "Token no válido" });
 
-    req.user = user;
-  });
+      req.user = user.id;
+    });
 
-  next();
+    next();
+  } catch (error) {
+    return res.status(403).json({ message: "Invalid token" });
+  }
 };

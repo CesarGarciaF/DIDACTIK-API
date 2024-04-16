@@ -7,7 +7,8 @@ exports.getUsers = (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  const id = req.params.id;
+  const id = req.user;
+  console.log(await User.findById({ _id: id }));
 
   await User.findById({ _id: id })
     .then((data) => res.json(data))
@@ -30,19 +31,16 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const id = req.params.id;
-  const userData = req.body;
-
-  const newUser = new User({
-    email: userData.email,
-    username: userData.username,
-    password: userData.password,
-  });
-
-  await newUser
-    .updateOne({ _id: id }, { $set: { newUser } })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
+  console.log(req.user);
+  console.log(req.body);
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user, req.body, {
+      new: true,
+    });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 };
 
 exports.deleteUser = (req, res) => {
