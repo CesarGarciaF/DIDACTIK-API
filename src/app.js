@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const coockieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const router = require("./routes/auth.routes");
 
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(coockieParser());
+app.use(cookieParser());
 
 const allowedOrigins = [
   // "http://localhost:5173",
