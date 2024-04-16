@@ -33,9 +33,10 @@ exports.signupUser = async (req, res) => {
       domain: ".onrender.com",
       path: "/",
       secure: true,
-      httpOnly: false,
       sameSite: "none",
     });
+    // res.cookie("token", token);
+
     res.json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,12 +69,12 @@ exports.authenticateUser = async (req, res) => {
       name: user.firstName,
       photo: user.photo,
     });
+    // res.cookie("token", token);
 
     res.cookie("token", token, {
       domain: ".onrender.com",
       path: "/",
       secure: true,
-      httpOnly: false,
       sameSite: "none",
     });
     res.json({ message: "Login successfully" });
