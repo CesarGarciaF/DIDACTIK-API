@@ -33,7 +33,7 @@ exports.signupUser = async (req, res) => {
       domain: ".onrender.com",
       path: "/",
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
     });
     res.json({ message: "User created successfully" });
@@ -73,7 +73,7 @@ exports.authenticateUser = async (req, res) => {
       domain: ".onrender.com",
       path: "/",
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "none",
     });
     res.json({ message: "Login successfully" });
