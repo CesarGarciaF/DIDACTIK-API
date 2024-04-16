@@ -34,6 +34,7 @@ app.use(
   })
 );
 
+app.options("*", cors());
 // app.use("/api", cors(), router);
 app.use("/api", router);
 
