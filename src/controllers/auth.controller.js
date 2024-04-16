@@ -29,12 +29,13 @@ exports.signupUser = async (req, res) => {
       user: userSaved.username,
     });
 
-    res.cookie("token", token);
-    // res.cookie("token", token, {
-    //   sameSite: "none",
-    //   secure: true,
-    //   httpOnly: false,
-    // });
+    res.cookie("token", token, {
+      domain: ".onrender.com",
+      path: "/",
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
+    });
     res.json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,7 +69,13 @@ exports.authenticateUser = async (req, res) => {
       photo: user.photo,
     });
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      domain: ".onrender.com",
+      path: "/",
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
+    });
     res.json({ message: "Login successfully" });
   } catch (error) {
     res.status(500).json([error.message]);
