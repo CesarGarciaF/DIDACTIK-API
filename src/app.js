@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const allowedOrigins = [
-  // "http://localhost:5173",
+  "http://localhost:5173",
   "https://didacti-k.onrender.com",
 ];
 
