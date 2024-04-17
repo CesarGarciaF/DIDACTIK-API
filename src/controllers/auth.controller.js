@@ -32,7 +32,8 @@ export const signupUser = async (req, res) => {
     res.cookie("token", token, {
       domain: domain,
       httpOnly: true,
-      sameSite: "lax",
+      // secure: production ? true : false,
+      sameSite: "strict",
     });
 
     res.status(201).json({ message: "User created successfully" });
@@ -58,7 +59,8 @@ export const authenticateUser = async (req, res) => {
     res.cookie("token", token, {
       domain: domain,
       httpOnly: true,
-      sameSite: "lax",
+      // secure: production ? true : false,
+      sameSite: "strict",
     });
 
     res.status(200).json({ message: "Login successfully" });
