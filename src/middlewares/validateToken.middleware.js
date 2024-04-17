@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import { secret } from "../config.js";
 
 export function validateToken(req, res, next) {
-  const { token } = req.cookies;
+  const token = req.session.token;
+  console.log(token);
 
   if (!token) return res.status(401).json({ message: "Acceso denegado" });
 

@@ -9,46 +9,33 @@ import { allowed_origin, secret } from "./config.js";
 const app = express();
 app.disable("x-powered-by");
 
-app.use(cookieParser());
-
-// app.use(
-//   session({
-//     secret: secret,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       maxAge: 24 * 60 * 60 * 1000,
-//       sameSite: "strict",
-//       secure: true,
-//       httpOnly: true,
-//     },
-//   })
-// );
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      allowed_origin;
-
-      if (allowed_origin.includes(origin)) return callback(null, true);
-
-      if (!origin) return callback(null, true);
-
-      return callback(new Error("Not allowed by Cors"));
-    },
+    origin: allowed_origin,
     credentials: true,
   })
 );
-
 app.options("*", cors());
+
+app.use(cookieParser());
+
+app.use(
+  session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      secure: false,
+      httpOnly: true,
+    },
+  })
+);
 
 app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
-// app.use((req, res, next) => {
-//   res.locals.session = req.session;
-//   next();
-// });
 
 app.use("/api", router);
 
