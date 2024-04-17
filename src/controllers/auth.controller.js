@@ -30,6 +30,7 @@ export const signupUser = async (req, res) => {
     });
 
     res
+      .status(200)
       .cookie("token", token, {
         domain: ".onrender.com",
         path: "/",
@@ -37,7 +38,6 @@ export const signupUser = async (req, res) => {
         httpOnly: true,
         sameSite: "lax",
       })
-      .status(200)
       .json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -62,6 +62,7 @@ export const authenticateUser = async (req, res) => {
     });
 
     res
+      .status(200)
       .cookie("token", token, {
         domain: ".onrender.com",
         path: "/",
@@ -69,7 +70,6 @@ export const authenticateUser = async (req, res) => {
         httpOnly: true,
         sameSite: "lax",
       })
-      .status(200)
       .json({ message: "Login successfully" });
   } catch (error) {
     res.status(500).json([error.message]);
