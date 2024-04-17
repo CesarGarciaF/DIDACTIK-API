@@ -30,9 +30,9 @@ export const signupUser = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      domain: "localhost",
+      domain: ".onrender.com",
       path: "/",
-      secure: false,
+      secure: true,
       httpOnly: true,
       sameSite: "lax",
     });
@@ -61,9 +61,9 @@ export const authenticateUser = async (req, res) => {
     });
 
     res.cookie("token", token, {
-      domain: "localhost",
+      domain: ".onrender.com",
       path: "/",
-      secure: false,
+      secure: true,
       httpOnly: true,
       sameSite: "lax",
     });
