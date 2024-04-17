@@ -1,6 +1,6 @@
-const Group = require("../models/group.model");
+import Group from "../models/group.model.js";
 
-exports.createGroup = async (req, res) => {
+export async function createGroup(req, res) {
   try {
     const group = new Group(req.body);
     const savedGroup = await group.save();
@@ -8,18 +8,18 @@ exports.createGroup = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
+}
 
-exports.getAllGroups = async (req, res) => {
+export async function getAllGroups(req, res) {
   try {
     const groups = await Group.find();
     res.json(groups);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}
 
-exports.getGroupById = async (req, res) => {
+export async function getGroupById(req, res) {
   try {
     const group = await Group.findById(req.params.id);
     if (group == null) {
@@ -29,9 +29,9 @@ exports.getGroupById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}
 
-exports.updateGroup = async (req, res) => {
+export async function updateGroup(req, res) {
   try {
     console.log("Params: " + req.params);
     console.log("Body: " + req.body);
@@ -46,13 +46,13 @@ exports.updateGroup = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
+}
 
-exports.deleteGroup = async (req, res) => {
+export async function deleteGroup(req, res) {
   try {
     await Group.findByIdAndDelete(req.params.id);
     res.json({ message: "Group deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}

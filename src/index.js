@@ -1,7 +1,7 @@
-const app = require("./app.js");
+import app from "./app.js";
+import connectDB from "./db.js";
+import cloudinaryConnect from "./cloudinary.js";
 const port = process.env.PORT;
-const connectDB = require("./db.js");
-const cloudinaryConnect = require("./cloudinary.js");
 
 cloudinaryConnect;
 connectDB();

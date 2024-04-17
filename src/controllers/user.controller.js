@@ -1,21 +1,21 @@
-const User = require("../models/user.model");
+import User from "../models/user.model.js";
 
-exports.getUsers = (req, res) => {
+export function getUsers(req, res) {
   User.find({})
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-};
+}
 
-exports.getUserById = async (req, res) => {
+export async function getUserById(req, res) {
   const id = req.user;
   console.log(await User.findById({ _id: id }));
 
   await User.findById({ _id: id })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-};
+}
 
-exports.registerUser = async (req, res) => {
+export async function registerUser(req, res) {
   const userData = req.body;
 
   const newUser = new User({
@@ -28,9 +28,9 @@ exports.registerUser = async (req, res) => {
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-};
+}
 
-exports.updateUser = async (req, res) => {
+export async function updateUser(req, res) {
   console.log(req.user);
   console.log(req.body);
   try {
@@ -41,12 +41,12 @@ exports.updateUser = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
+}
 
-exports.deleteUser = (req, res) => {
+export function deleteUser(req, res) {
   const id = req.params.id;
 
   User.deleteOne({ _id: id })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-};
+}

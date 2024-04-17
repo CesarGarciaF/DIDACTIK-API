@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const projectSchema = new mongoose.Schema(
+const projectSchema = new Schema(
   {
     project_phase: {
       type: Number,
@@ -18,6 +18,6 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Project = mongoose.model("Project", projectSchema);
+const Project = model("Project", projectSchema);
 
-module.exports = Project;
+export default Project;

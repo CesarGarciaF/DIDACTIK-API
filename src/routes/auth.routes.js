@@ -1,71 +1,101 @@
-const { Router } = require("express");
-const { validateToken } = require("../middlewares/validateToken.middleware");
-const authController = require("../controllers/auth.controller");
-const userController = require("../controllers/user.controller");
-const eventController = require("../controllers/event.controller");
-const fieldController = require("../controllers/field.controller");
-const planningController = require("../controllers/planning.controller");
-const groupController = require("../controllers/group.controller");
+import { Router } from "express";
+import { validateToken } from "../middlewares/validateToken.middleware.js";
+import {
+  signupUser,
+  authenticateUser,
+  logout,
+  verifyToken,
+  profile,
+} from "../controllers/auth.controller.js";
+import {
+  getUsers,
+  getUserById,
+  registerUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/user.controller.js";
+import { getAllEvents, createEvent } from "../controllers/event.controller.js";
+import {
+  getAllFields,
+  getFieldById,
+  createField,
+  updateField,
+  deleteField,
+} from "../controllers/field.controller.js";
+import {
+  getAllPlannings,
+  getPlanningById,
+  createPlanning,
+  updatePlanning,
+  deletePlanning,
+} from "../controllers/planning.controller.js";
+import {
+  getAllGroups,
+  getGroupById,
+  createGroup,
+  updateGroup,
+  deleteGroup,
+} from "../controllers/group.controller.js";
 
 const router = Router();
 
-router.post("/signup", authController.signupUser);
+router.post("/signup", signupUser);
 
-router.post("/login", authController.authenticateUser);
+router.post("/login", authenticateUser);
 
-router.post("/logout", authController.logout);
+router.post("/logout", logout);
 
-router.get("/verify", authController.verifyToken);
+router.get("/verify", verifyToken);
 
-router.get("/profile", validateToken, authController.profile);
+router.get("/profile", validateToken, profile);
 
 // User routes
-router.get("/users", userController.getUsers);
+router.get("/users", getUsers);
 
-router.get("/user", validateToken, userController.getUserById);
+router.get("/user", validateToken, getUserById);
 
-router.post("/user", userController.registerUser);
+router.post("/user", registerUser);
 
-router.put("/user", validateToken, userController.updateUser);
+router.put("/user", validateToken, updateUser);
 
-router.delete("/user/:id", userController.deleteUser);
+router.delete("/user/:id", deleteUser);
 
 // Event routes
-router.get("/events", eventController.getAllEvents);
+router.get("/events", getAllEvents);
 
-router.post("/events", eventController.createEvent);
+router.post("/events", createEvent);
 
 // Field routes
-router.get("/field", fieldController.getAllFields);
+router.get("/field", getAllFields);
 
-router.get("/field/:id", fieldController.getFieldById);
+router.get("/field/:id", getFieldById);
 
-router.post("/field", fieldController.createField);
+router.post("/field", createField);
 
-router.put("/field/:id", fieldController.updateField);
+router.put("/field/:id", updateField);
 
-router.delete("/field/:id", fieldController.deleteField);
+router.delete("/field/:id", deleteField);
 
 // Planning routes
-router.get("/planning", planningController.getAllPlannings);
+router.get("/planning", getAllPlannings);
 
-router.get("/planning/:id", planningController.getPlanningById);
+router.get("/planning/:id", getPlanningById);
 
-router.post("/planning", planningController.createPlanning);
+router.post("/planning", createPlanning);
 
-router.put("/planning/:id", planningController.updatePlanning);
+router.put("/planning/:id", updatePlanning);
 
-router.delete("/planning/:id", planningController.deletePlanning);
+router.delete("/planning/:id", deletePlanning);
 
 // Group routes
-router.get("/group", groupController.getAllGroups);
+router.get("/group", getAllGroups);
 
-router.get("/gropu/:id", groupController.getGroupById);
+router.get("/gropu/:id", getGroupById);
 
-router.post("/group", groupController.createGroup);
+router.post("/group", createGroup);
 
-router.put("/group/:id", groupController.updateGroup);
+router.put("/group/:id", updateGroup);
 
-router.delete("/group/:id", groupController.deleteGroup);
+router.delete("/group/:id", deleteGroup);
 
-module.exports = router;
+export default router;

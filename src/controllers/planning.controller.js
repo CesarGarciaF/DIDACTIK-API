@@ -1,6 +1,6 @@
-const Planning = require("../models/planning.model");
+import Planning from "../models/planning.model.js";
 
-exports.createPlanning = async (req, res) => {
+export async function createPlanning(req, res) {
   try {
     const Planning = new Planning(req.body);
     const savedPlanning = await Planning.save();
@@ -8,18 +8,18 @@ exports.createPlanning = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
+}
 
-exports.getAllPlannings = async (req, res) => {
+export async function getAllPlannings(req, res) {
   try {
     const plannings = await Planning.find();
     res.json(plannings);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}
 
-exports.getPlanningById = async (req, res) => {
+export async function getPlanningById(req, res) {
   try {
     const planning = await Planning.findById(req.params.id);
     if (planning == null) {
@@ -29,9 +29,9 @@ exports.getPlanningById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}
 
-exports.updatePlanning = async (req, res) => {
+export async function updatePlanning(req, res) {
   try {
     const updatedPlanning = await Planning.findByIdAndUpdate(
       req.params.id,
@@ -42,13 +42,13 @@ exports.updatePlanning = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-};
+}
 
-exports.deletePlanning = async (req, res) => {
+export async function deletePlanning(req, res) {
   try {
     await Planning.findByIdAndDelete(req.params.id);
     res.json({ message: "Planning deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const planningSchema = new mongoose.Schema({
+const planningSchema = new Schema({
   beginDate: { type: Date },
   endDate: { type: Date },
   session: { type: Number },
@@ -9,15 +9,15 @@ const planningSchema = new mongoose.Schema({
   develop: { type: String },
   end: { type: String },
   field: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "field",
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "user",
   },
 });
 
-const Planning = mongoose.model("Planning", planningSchema);
+const Planning = model("Planning", planningSchema);
 
-module.exports = Planning;
+export default Planning;
