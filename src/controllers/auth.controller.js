@@ -29,16 +29,15 @@ export const signupUser = async (req, res) => {
       user: userSaved.username,
     });
 
-    res
-      .status(200)
-      .cookie("token", token, {
-        domain: domain,
-        path: "/",
-        secure: production ? true : false,
-        httpOnly: true,
-        sameSite: "none",
-      })
-      .json({ message: "User created successfully" });
+    res.cookie("token", token, {
+      domain: domain,
+      path: "/",
+      secure: production ? true : false,
+      httpOnly: true,
+      sameSite: "none",
+    });
+
+    res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -55,22 +54,17 @@ export const authenticateUser = async (req, res) => {
 
     const token = await createAccessToken({
       id: user._id,
-      email: user.email,
-      name: user.name,
-      firstName: user.firstName,
-      photo: user.photo,
     });
 
-    res
-      .status(200)
-      .cookie("token", token, {
-        domain: domain,
-        path: "/",
-        secure: production ? true : false,
-        httpOnly: true,
-        sameSite: "none",
-      })
-      .json({ message: "Login successfully" });
+    res.cookie("token", token, {
+      domain: domain,
+      path: "/",
+      secure: production ? true : false,
+      httpOnly: true,
+      sameSite: "none",
+    });
+
+    res.status(200).json({ message: "Login successfully" });
   } catch (error) {
     res.status(500).json([error.message]);
   }
