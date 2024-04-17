@@ -11,19 +11,19 @@ app.disable("x-powered-by");
 
 app.use(cookieParser());
 
-app.use(
-  session({
-    secret: secret,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: "none",
-      secure: true,
-      httpOnly: true,
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: secret,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       maxAge: 24 * 60 * 60 * 1000,
+//       sameSite: "strict",
+//       secure: true,
+//       httpOnly: true,
+//     },
+//   })
+// );
 
 app.use(
   cors({
@@ -45,10 +45,10 @@ app.options("*", cors());
 app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  res.locals.session = req.session;
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.session = req.session;
+//   next();
+// });
 
 app.use("/api", router);
 
