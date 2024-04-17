@@ -31,7 +31,6 @@ export const signupUser = async (req, res) => {
 
     res.cookie("token", token, {
       domain: domain,
-      path: "/",
       secure: production ? true : false,
       httpOnly: true,
       sameSite: "none",
@@ -58,7 +57,6 @@ export const authenticateUser = async (req, res) => {
 
     res.cookie("token", token, {
       domain: domain,
-      path: "/",
       secure: production ? true : false,
       httpOnly: true,
       sameSite: "none",

@@ -2,11 +2,28 @@ import express, { json, urlencoded } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import session from "express-session";
 import router from "./routes/auth.routes.js";
-import { allowed_origin } from "./config.js";
+import { allowed_origin, secret } from "./config.js";
 
 const app = express();
 app.disable("x-powered-by");
+
+app.use(cookieParser());
+
+app.use(
+  session({
+    secret: secret,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    },
+  })
+);
 
 app.use(
   cors({
@@ -28,24 +45,11 @@ app.options("*", cors());
 app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 
-// const allowedOrigins = config.allowed_origins;
-
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//       console.log("Not allowed by cors");
-//     }
-//   },
-//   credentials: true,
-// };
-
-// app.use(cors(corsOptions));
-// app.use("/api", cors(), router);
 app.use("/api", router);
 
 export default app;
