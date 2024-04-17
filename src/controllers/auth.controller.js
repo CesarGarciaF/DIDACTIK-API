@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import createAccessToken from "../libs/jwt.js";
+import { createAccessToken } from "../libs/jwt.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { secret } from "../config.js";
