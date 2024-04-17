@@ -33,7 +33,7 @@ export const signupUser = async (req, res) => {
       domain: domain,
       secure: production ? true : false,
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
     });
 
     res.status(201).json({ message: "User created successfully" });
@@ -44,6 +44,7 @@ export const signupUser = async (req, res) => {
 
 export const authenticateUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.session);
   try {
     const user = await User.findOne({ email });
 
@@ -59,7 +60,7 @@ export const authenticateUser = async (req, res) => {
       domain: domain,
       secure: production ? true : false,
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "lax",
     });
 
     res.status(200).json({ message: "Login successfully" });
