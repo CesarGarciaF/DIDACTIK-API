@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import { createAccessToken } from "../libs/jwt.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { secret } from "../config.js";
+import { secret, domain, production } from "../config.js";
 
 export const signupUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -32,11 +32,11 @@ export const signupUser = async (req, res) => {
     res
       .status(200)
       .cookie("token", token, {
-        domain: ".onrender.com",
+        domain: domain,
         path: "/",
-        secure: true,
+        secure: production ? true : false,
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
       })
       .json({ message: "User created successfully" });
   } catch (error) {
@@ -64,11 +64,11 @@ export const authenticateUser = async (req, res) => {
     res
       .status(200)
       .cookie("token", token, {
-        domain: ".onrender.com",
+        domain: domain,
         path: "/",
-        secure: true,
+        secure: production ? true : false,
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
       })
       .json({ message: "Login successfully" });
   } catch (error) {

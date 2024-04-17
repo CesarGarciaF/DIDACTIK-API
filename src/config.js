@@ -9,3 +9,5 @@ export const secret = process.env.SECRET;
 export const cloud_name = process.env.CLOUD_NAME;
 export const api_key = process.env.API_KEY;
 export const api_secret = process.env.API_SECRET;
+export const domain = process.env.DOMAIN;
+export const production = process.env.PRODUCTION;
