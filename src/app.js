@@ -4,7 +4,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import router from "./routes/auth.routes.js";
-import { allowed_origin, secret } from "./config.js";
+import { allowed_origin, production, secret } from "./config.js";
 
 const app = express();
 app.disable("x-powered-by");
@@ -27,7 +27,7 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: "lax",
-      secure: false,
+      secure: production ? true : false,
       httpOnly: true,
     },
   })
