@@ -32,7 +32,9 @@ export const signupUser = async (req, res) => {
 
     // res.session.token = token;
 
-    res.status(201).json(token, { message: "User created successfully" });
+    res
+      .status(201)
+      .json({ token: token, message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -54,7 +56,7 @@ export const authenticateUser = async (req, res) => {
 
     // req.session.token = token;
 
-    res.status(200).json(token, { message: "Login successfully" });
+    res.status(200).json({ token: token, message: "Login successfully" });
   } catch (error) {
     res.status(500).json([error.message]);
   }
@@ -84,7 +86,7 @@ export const profile = async (req, res) => {
 };
 
 export const verifyToken = async (req, res) => {
-  const token = req.cookie.token;
+  const { token } = req.cookies;
   // const token = req.session.token;
 
   if (!token) return res.status(401).json({ message: "No autoizado" });
