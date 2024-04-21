@@ -45,7 +45,7 @@ router.post("/login", authenticateUser);
 
 router.post("/logout", logout);
 
-router.get("/verify", verifyToken);
+router.get("/verify", validateToken, verifyToken);
 
 router.get("/profile", validateToken, profile);
 

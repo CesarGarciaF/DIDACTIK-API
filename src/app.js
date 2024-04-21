@@ -19,20 +19,6 @@ app.options("*", cors());
 
 app.use(cookieParser());
 
-// app.use(
-//   session({
-//     secret: secret,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       maxAge: 24 * 60 * 60 * 1000,
-//       sameSite: "lax",
-//       secure: production ? true : false,
-//       httpOnly: true,
-//     },
-//   })
-// );
-
 app.use(morgan("dev"));
 app.use(json());
 app.use(urlencoded({ extended: true }));

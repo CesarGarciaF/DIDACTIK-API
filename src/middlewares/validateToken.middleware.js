@@ -2,8 +2,7 @@ import jwt from "jsonwebtoken";
 import { secret } from "../config.js";
 
 export function validateToken(req, res, next) {
-  const { token } = req.cookies;
-  // const token = req.session.token;
+  const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) return res.status(401).json({ message: "Acceso denegado" });
 
@@ -12,6 +11,7 @@ export function validateToken(req, res, next) {
       if (err) return res.status(403).json({ message: "Token no válido" });
 
       req.user = user.id;
+      console.log(req.user);
     });
 
     next();
