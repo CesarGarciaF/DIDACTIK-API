@@ -1,9 +1,6 @@
 import User from "../models/user.model.js";
 import { createAccessToken } from "../libs/jwt.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { secret, domain, production } from "../config.js";
-import session from "express-session";
 
 export const signupUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -82,20 +79,13 @@ export const profile = async (req, res) => {
 };
 
 export const verifyToken = async (req, res) => {
-  const token = req.user;
+  const userFound = await User.findById(req.user);
+  if (!userFound) return res.status(401).json({ message: "No autorizado" });
 
-  if (!token) return res.status(401).json({ message: "No autoizado" });
-
-  jwt.verify(token, secret, async (error, user) => {
-    if (error) return res.status(401).json({ message: "No autorizado" });
-
-    const userFound = await User.findById(user.id);
-    if (!userFound) return res.status(401).json({ message: "No autorizado" });
-
-    return res.json({
-      id: userFound._id,
-      username: userFound.username,
-      email: userFound.email,
-    });
+  return res.json({
+    id: userFound._id,
+    name: userFound.name,
+    avatar: userFound.avatar,
+    email: userFound.email,
   });
 };

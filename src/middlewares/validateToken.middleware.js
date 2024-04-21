@@ -11,7 +11,6 @@ export function validateToken(req, res, next) {
       if (err) return res.status(403).json({ message: "Token no válido" });
 
       req.user = user.id;
-      console.log(req.user);
     });
 
     next();
